@@ -67,6 +67,19 @@ void dequeue(){
 void displayQueue(){
     struct node* temp = front
     do{
-        printf("%d\t",temp)
+        printf("%d\t",temp->data)
     }while(temp->next!=NULL);
 }
+
+
+/*
+if(front == null){
+    front = nn
+    rear = nn
+}
+else
+{
+    rear-> next = nn; rear = nn;
+}
+
+*/
