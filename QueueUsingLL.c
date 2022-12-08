@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stlib.h>
 
-
-void main(){
+void main()
+{
     int ch = -1;
     while (ch != 0)
     {
@@ -26,51 +26,60 @@ void main(){
     displayQueue();
 }
 
-struct node{
+struct node
+{
     int data;
-    struct node* next;
+    struct node *next;
 };
 
 struct node *createNode()
 {
     struct node *temp;
     temp = (struct node *)malloc(sizeof(struct node));
-    temp->next=NULL;
+    temp->next = NULL;
     return temp;
 }
 
-struct node* rear,front;
+struct node *rear, front;
 rear = createNode();
 front = createNode();
 
-void enqueu(int value){
-    struct node* newNode = createNode();
-    if(front==NULL){
+void enqueu(int value)
+{
+    struct node *newNode = createNode();
+    if (front == NULL)
+    {
         front = newNode;
         rear = newNode;
     }
-    rear->next = newNode;
-    rear = newNode;   
+    else
+    {
+        rear->next = newNode;
+        rear = newNode;
+    }
     rear->data = value;
 }
 
-void dequeue(){
-    if(front==NULL){
-        printf("")
-        return;
+void dequeue()
+{
+    if (front == NULL)
+    {
+        printf("") return;
     }
-    struct node* temp = front;
-    front = temp-> next;
+    struct node *temp = front;
+    front = temp->next;
     free(temp);
 }
 
-void displayQueue(){
-    struct node* temp = front
-    do{
-        printf("%d\t",temp->data)
-    }while(temp->next!=NULL);
+void displayQueue()
+{
+    struct node *temp = front do
+    {
+        printf("%d\t", temp->data)
+    }
+    while (temp->next != NULL)
+        ;
 }
-
 
 /*
 if(front == null){
