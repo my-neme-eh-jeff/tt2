@@ -56,30 +56,12 @@ void displayQueue()
         {
             printf("%d\t", queue[i]);
         }
-        for (int i = 0; i <= rear)
+        for (int i = 0; i <= rear;i++)
         {
             printf("%d\t", queue[i]);
         }
     }
 }
-
-/*
-void enqueue(int val){
-    if(front ==-1){
-        front++;
-        rear++;
-        queue[rear] = val;
-    }
-    else if((rear+1)%n==front){
-        printf("full type shit");
-        return;
-    }
-    else{
-        rear = (rear+1)%n;
-        queue[rear]=val;
-    }
-}
-*/
 
 void enqueu(int value)
 {
