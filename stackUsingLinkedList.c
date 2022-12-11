@@ -1,50 +1,53 @@
 #include <stdio.h>
-#include <stdlib.h>
 
-#define N 5
-int topCounter=-1;
-
-struct node
-{
+struct node{
+    struct node* next;
     int data;
-    struct node *next;
 };
 
-struct node *createNode()
-{
-    struct node *temp;
-    temp = (struct node *)malloc(sizeof(struct node));
-    temp->next=NULL;
+int topCounter =-1;
+
+struct node* createNode(){
+    struct node* temp;
+    temp= (struct node*) (malloc(sizeof(struct node)));
+    temp->next = NULL ;
     return temp;
-}
+} 
 
-struct node* head;
-
-
-void push(value){
-    struct node* newNode = createNode();
-    newNode->data = value;
-    if(topCounter==n-1){
-        printf("max limit reached");
-    }
-    topCounter++;
-    if(head==NULL){
-        head=newNode;
-    }
-    newNode->next=head;
-    head=newNode;
-}
+struct node * top;
 
 void pop(){
     if(topCounter==-1){
-        printf("NO more elements left in stack cannot pop");
-        return;
-    }
-    struct node* temp;
-    temp = head;
-    head = temp->next;
-    free(temp);
+        printf("No node exist in stack to pop");
+    }else{
+    printf("The value popped is %d",top->data);
     topCounter--;
+    struct node *temp = top;
+    top = top->next;
+    free(temp);
+    }
+}
+
+void push(int value){
+    struct node* newNode = createNode();
+    topCounter++;
+    if (top==NULL){
+        top = newNode;
+        newNode->data = value;
+        return ;
+    }
+    newNode->next = top;
+    top = newNode;
+}
+
+void display(){
+    printf("The stack contains:\n")
+    struct node* temp;
+    temp = top;
+    while(temp!=NULL){
+        printf("%d",temp->data);
+        temp=temp->next;
+    }
 }
 
 void main()
@@ -57,6 +60,7 @@ void main()
         scanf("%d", &choice);
         if (choice == 1)
         {
+            pop();
         }
         else if (choice == 2)
         {
@@ -65,10 +69,8 @@ void main()
             scanf("%d", &value);
             push(value);
         }
-
-        printf("Enter 0 to exit");
+        printf("\nEnter 0 to exit");
         scanf("%d", &ch);
     }
+    display();
 }
-
-

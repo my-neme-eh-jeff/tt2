@@ -1,5 +1,57 @@
 #include <stdio.h>
-#include <stlib.h>
+#include <stdlib.h>
+
+struct node
+{
+    int data;
+    struct node *next;
+};
+
+struct node *createNode()
+{
+    struct node *temp;
+    temp = (struct node *)malloc(sizeof(struct node));
+    temp->next = NULL;
+    return temp;
+}
+
+struct node *rear, *front;
+
+void enqueu(int value)
+{
+    struct node *newNode = createNode();
+    newNode -> data = value;
+    if (front == NULL)
+    {
+        front = newNode;
+        rear = newNode;
+    }
+    else
+    {
+        rear->next = newNode;
+        rear = newNode;
+    }
+}
+
+void dequeue()
+{
+    if (front == NULL)
+    {
+        printf("no queue exists to dequeue");
+        return;
+    }
+    struct node *temp = front;
+    front = temp->next;
+    free(temp);
+}
+
+void displayQueue()
+{
+    struct node *temp = front;
+    while(temp!=NULL){
+        printf("%d\t", temp->data);
+    }
+}
 
 void main()
 {
@@ -25,70 +77,3 @@ void main()
     }
     displayQueue();
 }
-
-struct node
-{
-    int data;
-    struct node *next;
-};
-
-struct node *createNode()
-{
-    struct node *temp;
-    temp = (struct node *)malloc(sizeof(struct node));
-    temp->next = NULL;
-    return temp;
-}
-
-struct node *rear, front;
-rear = createNode();
-front = createNode();
-
-void enqueu(int value)
-{
-    struct node *newNode = createNode();
-    if (front == NULL)
-    {
-        front = newNode;
-        rear = newNode;
-    }
-    else
-    {
-        rear->next = newNode;
-        rear = newNode;
-    }
-    rear->data = value;
-}
-
-void dequeue()
-{
-    if (front == NULL)
-    {
-        printf("") return;
-    }
-    struct node *temp = front;
-    front = temp->next;
-    free(temp);
-}
-
-void displayQueue()
-{
-    struct node *temp = front do
-    {
-        printf("%d\t", temp->data)
-    }
-    while (temp->next != NULL)
-        ;
-}
-
-/*
-if(front == null){
-    front = nn
-    rear = nn
-}
-else
-{
-    rear-> next = nn; rear = nn;
-}
-
-*/

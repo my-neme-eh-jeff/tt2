@@ -28,38 +28,47 @@ struct node* inorderPredecessor(struct node* temp){
 struct node* deleteNode(struct node *temp, int value)
 {
     struct node* inorderPredecessorNode;
-    //base condition
+
     
-    if(temp->left == NULL && temp->right == NULL){
-        free(temp);
-        return NULL;
-    }
  
     if(value> temp->data){
         temp-> right = deleteNode(temp-> right,value);
     }else if(value< temp->data){
         temp-> left = deleteNode(temp-> left,value);
     }else{
+        if(temp->left == NULL && temp->right ==NULL && temp->data==value){
+        free(temp);
+        return NULL;
+        }
+        else if(temp->left==NULL){
+            struct node * rightChild = temp->right;
+            free(temp);
+            return(rightChild);
+        }else if(temp->right== NULL){
+            struct node* leftChild = temp->left;
+            free(temp);
+            return(leftChild);
+        }else{
         inorderPredecessorNode= inorderPredecessor(temp);
         temp->data = inorderPredecessorNode-> data; 
         temp-> left = deleteNode(temp->left,inorderPredecessorNode->data);
-    }
+    }}
     
     return temp;
 }
 
-void insert(struct node *temp)
+void insert(struct node *root)
 {
     int x;
-    struct node *prev;
-    struct node *newNode = createNode();
+    struct node *prev,*temp;
     int ch = -1;
     while (ch != 0)
     {
+        temp = root;
+        struct node *newNode = createNode();
         printf("Enter the data you want to insert");
         scanf("%d", &x);
         newNode->data = x;
-
         while (temp != NULL)
         {
             prev = temp;
@@ -74,8 +83,8 @@ void insert(struct node *temp)
             else
             {
                 printf("Duplicates not allowed");
-                return;
-            }
+                break;
+            } 
         }
         if (x < prev->data)
         {
@@ -90,6 +99,7 @@ void insert(struct node *temp)
         scanf("%d", &ch);
     }
 }
+
 void inorder(struct node *currentRoot)
 {
     if (currentRoot == NULL)
@@ -125,14 +135,12 @@ void postorder(struct node *currentRoot)
 
 void main()
 {
+    int x;
+    printf("Enter the data into the root");
+    scanf("%d",&x);
     struct node *root = createNode();
-    root->data = 46;
-    struct node *node1 = createNode();
-    root->left = node1;
-    node1->data = 20;
-    struct node *node2 = createNode();
-    root->right = node2;
-    node2->data = 60;
+    root->data = x;
+    printf("For the rest of the tree-\n ");
     insert(root);
 
     printf("The tree created is:\n");
