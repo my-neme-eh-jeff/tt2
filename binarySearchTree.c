@@ -16,51 +16,63 @@ struct node *createNode()
     return temp;
 }
 
-struct node* inorderPredecessor(struct node* temp){
-    //inorder predecessor for a node is the rightmost element in the nodes left subtree
-    temp = temp-> left;
-    while(temp->right!=NULL){
-        temp= temp-> right;
+struct node *inorderPredecessor(struct node *temp)
+{
+    // inorder predecessor for a node is the rightmost element in the nodes left subtree
+    temp = temp->left;
+    while (temp->right != NULL)
+    {
+        temp = temp->right;
     }
     return temp;
 }
 
-struct node* deleteNode(struct node *temp, int value)
+struct node *deleteNode(struct node *temp, int value)
 {
-    struct node* inorderPredecessorNode;
+    struct node *inorderPredecessorNode;
 
-    
- 
-    if(value> temp->data){
-        temp-> right = deleteNode(temp-> right,value);
-    }else if(value< temp->data){
-        temp-> left = deleteNode(temp-> left,value);
-    }else{
-        if(temp->left == NULL && temp->right ==NULL && temp->data==value){
-        free(temp);
-        return NULL;
+    if (value > temp->data)
+    {
+        temp->right = deleteNode(temp->right, value);
+    }
+    else if (value < temp->data)
+    {
+        temp->left = deleteNode(temp->left, value);
+    }
+    else
+    {
+        if (temp->left == NULL && temp->right == NULL && temp->data == value)
+        {
+            free(temp);
+            return NULL;
         }
-        else if(temp->left==NULL){
-            struct node * rightChild = temp->right;
+        else if (temp->left == NULL)
+        {
+            struct node *rightChild = temp->right;
             free(temp);
-            return(rightChild);
-        }else if(temp->right== NULL){
-            struct node* leftChild = temp->left;
+            return (rightChild);
+        }
+        else if (temp->right == NULL)
+        {
+            struct node *leftChild = temp->left;
             free(temp);
-            return(leftChild);
-        }else{
-        inorderPredecessorNode= inorderPredecessor(temp);
-        temp->data = inorderPredecessorNode-> data; 
-        temp-> left = deleteNode(temp->left,inorderPredecessorNode->data);
-    }}
-    
+            return (leftChild);
+        }
+        else
+        {
+            inorderPredecessorNode = inorderPredecessor(temp);
+            temp->data = inorderPredecessorNode->data;
+            temp->left = deleteNode(temp->left, inorderPredecessorNode->data);
+        }
+    }
+
     return temp;
 }
 
 void insert(struct node *root)
 {
     int x;
-    struct node *prev,*temp;
+    struct node *prev, *temp;
     int ch = -1;
     while (ch != 0)
     {
@@ -84,7 +96,7 @@ void insert(struct node *root)
             {
                 printf("Duplicates not allowed");
                 break;
-            } 
+            }
         }
         if (x < prev->data)
         {
@@ -137,7 +149,7 @@ void main()
 {
     int x;
     printf("Enter the data into the root");
-    scanf("%d",&x);
+    scanf("%d", &x);
     struct node *root = createNode();
     root->data = x;
     printf("For the rest of the tree-\n ");
@@ -153,14 +165,12 @@ void main()
 
     int w;
     printf("\nEnter the value to be deleted");
-    scanf("%d",&w);
-    deleteNode(root,w);
+    scanf("%d", &w);
+    deleteNode(root, w);
     printf("Inorder traversal is \n");
     inorder(root);
     printf("\nPostorder traversal is \n");
     postorder(root);
     printf("\nPreorder traversal is \n");
     preorder(root);
-
-
 }
